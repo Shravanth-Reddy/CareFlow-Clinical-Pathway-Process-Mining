@@ -1,12 +1,12 @@
 
 import random
 from datetime import timedelta
-from datetime import timedelta
 
 from careflow.config import (
     RANDOM_SEED,
     EXTENDED_ACTIVITY_PROBABILITY,
     ACTIVITY_DURATIONS,
+    LONG_WAIT_PROPORTION,
 )
 
 
@@ -123,3 +123,48 @@ def generate_visit_timeline(case_id, pathway, arrival_time, rng):
 
     return events
 
+from careflow.config import BOTTLENECK_TRANSITIONS, BOTTLENECK_WEIGHT
+
+
+def select_long_wait_transitions(pathways, rng):
+    """Select an exact count of transitions using weighted sampling."""
+
+    eligible = []
+
+    for case_id, pathway in pathways.items():
+        for index in range(len(pathway) - 1):
+            from_activity = pathway[index]
+            to_activity = pathway[index + 1]
+
+            weight = (
+                BOTTLENECK_WEIGHT
+                if (from_activity, to_activity) in BOTTLENECK_TRANSITIONS
+                else 1
+            )
+
+            eligible.append(
+                (case_id, from_activity, to_activity, weight)
+            )
+
+    target_count = round(len(eligible) * LONG_WAIT_PROPORTION)
+
+    if target_count > len(eligible):
+        raise ValueError("Long-wait target exceeds eligible transitions.")
+
+    remaining = eligible.copy()
+    selected = set()
+
+    for _ in range(target_count):
+        total_weight = sum(item[3] for item in remaining)
+        draw = rng.uniform(0, total_weight)
+        cumulative_weight = 0
+
+        for item in remaining:
+            cumulative_weight += item[3]
+
+            if draw <= cumulative_weight:
+                selected.add(item[:3])
+                remaining.remove(item)
+                break
+
+    return selected
