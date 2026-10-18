@@ -1,6 +1,7 @@
 
 import random
 from datetime import timedelta
+from datetime import timedelta
 
 from careflow.config import (
     RANDOM_SEED,
@@ -74,4 +75,51 @@ def generate_waiting_time(rng, is_long_wait=False):
     wait = round(rng.triangular(minimum, maximum, mode))
 
     return wait
+
+
+
+def create_activity_event(case_id, activity_name, start_time, rng):
+    """Create one timestamped activity event."""
+
+    duration, is_extended = generate_activity_duration(
+        activity_name, rng
+    )
+
+    end_time = start_time + timedelta(minutes=duration)
+
+    event = {
+        "Case_ID": case_id,
+        "Activity_Name": activity_name,
+        "Start_Timestamp": start_time,
+        "End_Timestamp": end_time,
+    }
+
+    return event, is_extended
+
+
+def generate_visit_timeline(case_id, pathway, arrival_time, rng):
+    """Generate timestamped events for one ordered patient pathway."""
+
+    events = []
+    current_start = arrival_time
+
+    for index, activity_name in enumerate(pathway):
+        event, is_extended = create_activity_event(
+            case_id,
+            activity_name,
+            current_start,
+            rng,
+        )
+
+        events.append(event)
+
+        # Prepare the start time of the next activity.
+        if index < len(pathway) - 1:
+            waiting_time = generate_waiting_time(rng)
+            current_start = (
+                event["End_Timestamp"]
+                + timedelta(minutes=waiting_time)
+            )
+
+    return events
 
