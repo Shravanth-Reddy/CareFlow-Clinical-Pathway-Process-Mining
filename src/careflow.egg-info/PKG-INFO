@@ -1,0 +1,5 @@
+Metadata-Version: 2.4
+Name: careflow
+Version: 0.1.0
+Summary: CareFlow simulation project
+Requires-Python: >=3.10
