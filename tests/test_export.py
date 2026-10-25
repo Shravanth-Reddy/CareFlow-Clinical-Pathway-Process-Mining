@@ -1,5 +1,7 @@
 
 import csv
+from pathlib import Path
+import tempfile
 
 from careflow.simulator import generate_baseline_visits
 from careflow.validation import validate_dataset
@@ -12,7 +14,7 @@ def read_csv(path):
         return reader.fieldnames, list(reader)
 
 
-def test_export():
+def test_export(tmp_path):
     (
         event_log,
         visits,
@@ -32,6 +34,8 @@ def test_export():
         event_log,
         visits,
         injection_records,
+        raw_dir=tmp_path / "raw",
+        metadata_dir=tmp_path / "metadata",
     )
 
     event_columns, event_rows = read_csv(paths["event_log"])
@@ -65,4 +69,5 @@ def test_export():
 
 
 if __name__ == "__main__":
-    test_export()
+    with tempfile.TemporaryDirectory() as temp_dir:
+        test_export(Path(temp_dir))

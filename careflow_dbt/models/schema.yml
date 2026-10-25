@@ -1,0 +1,21 @@
+version: 2
+
+models:
+  - name: stg_event_log
+    description: Source events with start timestamp retained without timezone conversion.
+    columns:
+      - name: Case_ID
+        data_tests: [not_null]
+      - name: Activity_Name
+        data_tests: [not_null]
+      - name: Timestamp
+        data_tests: [not_null]
+  - name: fct_event_log
+    description: Safe Week 2 process-mining event log; one row per eligible source event.
+    columns:
+      - name: Case_ID
+        data_tests: [not_null]
+      - name: Activity_Name
+        data_tests: [not_null]
+      - name: Timestamp
+        data_tests: [not_null]

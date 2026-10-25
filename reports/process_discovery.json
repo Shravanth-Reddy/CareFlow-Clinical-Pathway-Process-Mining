@@ -1,0 +1,151 @@
+{
+  "source_relation": "care-flow-512415.careflow_week2.fct_event_log",
+  "pm4py_version": "2.7.23.11",
+  "discovery_algorithm": "PM4Py frequency directly-follows graph (DFG)",
+  "event_count": 4863,
+  "case_count": 1000,
+  "incomplete_cases_with_observed_events": 21,
+  "activities": [
+    "Diagnostic_Test",
+    "Discharge",
+    "Doctor_Consultation",
+    "Registration",
+    "Review_Results",
+    "Triage"
+  ],
+  "activity_event_counts": {
+    "Diagnostic_Test": 397,
+    "Discharge": 979,
+    "Doctor_Consultation": 1095,
+    "Registration": 1000,
+    "Review_Results": 382,
+    "Triage": 1010
+  },
+  "directly_follows_edges": 13,
+  "start_activities": {
+    "Registration": 1000
+  },
+  "end_activities": {
+    "Discharge": 979,
+    "Triage": 12,
+    "Doctor_Consultation": 5,
+    "Review_Results": 2,
+    "Diagnostic_Test": 2
+  },
+  "timestamp_dtype": "datetime64[us, UTC]",
+  "timestamp_source": "BigQuery TIMESTAMP; timezone-aware connector values preserved",
+  "case_timestamp_tie_events": 0,
+  "exact_trace_counts": [
+    {
+      "activities": [
+        "Registration",
+        "Triage",
+        "Doctor_Consultation",
+        "Discharge"
+      ],
+      "cases": 518
+    },
+    {
+      "activities": [
+        "Registration",
+        "Triage",
+        "Doctor_Consultation",
+        "Diagnostic_Test",
+        "Review_Results",
+        "Discharge"
+      ],
+      "cases": 269
+    },
+    {
+      "activities": [
+        "Registration",
+        "Triage",
+        "Doctor_Consultation",
+        "Diagnostic_Test",
+        "Review_Results",
+        "Doctor_Consultation",
+        "Discharge"
+      ],
+      "cases": 62
+    },
+    {
+      "activities": [
+        "Registration",
+        "Triage",
+        "Doctor_Consultation",
+        "Doctor_Consultation",
+        "Discharge"
+      ],
+      "cases": 30
+    },
+    {
+      "activities": [
+        "Registration",
+        "Triage",
+        "Triage",
+        "Doctor_Consultation",
+        "Discharge"
+      ],
+      "cases": 25
+    },
+    {
+      "activities": [
+        "Registration",
+        "Doctor_Consultation",
+        "Discharge"
+      ],
+      "cases": 17
+    },
+    {
+      "activities": [
+        "Registration",
+        "Triage"
+      ],
+      "cases": 12
+    },
+    {
+      "activities": [
+        "Registration",
+        "Triage",
+        "Doctor_Consultation",
+        "Doctor_Consultation",
+        "Diagnostic_Test",
+        "Review_Results",
+        "Discharge"
+      ],
+      "cases": 11
+    },
+    {
+      "activities": [
+        "Registration",
+        "Triage",
+        "Doctor_Consultation",
+        "Diagnostic_Test",
+        "Diagnostic_Test",
+        "Review_Results",
+        "Discharge"
+      ],
+      "cases": 11
+    },
+    {
+      "activities": [
+        "Registration",
+        "Triage",
+        "Triage",
+        "Doctor_Consultation",
+        "Diagnostic_Test",
+        "Review_Results",
+        "Discharge"
+      ],
+      "cases": 9
+    }
+  ],
+  "graph_png": "outputs\\process_map.png",
+  "pm4py_visualizer_export": "outputs\\process_map.gv",
+  "graph_png_bytes": 58093,
+  "graphviz_source_bytes": 2559,
+  "graphviz_dot": "C:\\Program Files\\Graphviz\\bin\\dot.exe",
+  "graphviz_version": "dot - graphviz version 16.1.0 (20260904.0139)",
+  "ordering_note": "Events sort by case and timestamp; activity-name tie-break is only serialization and does not establish clinical order.",
+  "interpretation_note": "Exact trace counts are complete event sequences. The DFG represents observed adjacent activity frequencies, not clinical correctness."
+}

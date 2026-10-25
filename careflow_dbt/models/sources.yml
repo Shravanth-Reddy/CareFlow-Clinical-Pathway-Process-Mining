@@ -1,0 +1,23 @@
+version: 2
+
+sources:
+  - name: careflow_raw
+    database: care-flow-512415
+    schema: careflow
+    description: Read-only source relations. dbt models must never materialize here.
+    tables:
+      - name: event_log
+        columns:
+          - name: Case_ID
+            data_tests: [not_null]
+          - name: Activity_Name
+            data_tests: [not_null]
+          - name: Start_Timestamp
+            data_tests: [not_null]
+      - name: case_metadata
+        columns:
+          - name: Case_ID
+            data_tests: [not_null, unique]
+          - name: Is_Incomplete
+            data_tests: [not_null]
+      - name: injection_log

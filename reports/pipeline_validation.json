@@ -1,0 +1,293 @@
+{
+  "project": "CareFlow Week 2",
+  "generated_on": "2026-10-25",
+  "environment": {
+    "python": "3.13.3",
+    "dbt_core": "1.13.0-b1",
+    "dbt_bigquery_adapter": "1.12.1",
+    "pm4py": "2.7.23.11",
+    "active_target": "dev",
+    "profile_dataset": "careflow",
+    "effective_model_dataset": "careflow_week2",
+    "model_materialization": "view",
+    "graphviz": "16.1.0",
+    "graphviz_executable": "C:\\Program Files\\Graphviz\\bin\\dot.exe"
+  },
+  "dbt": {
+    "debug": "passed; current profile target dev resolves project care-flow-512415, raw dataset careflow, location asia-south1",
+    "parse": "passed using documented dbt.exe command",
+    "compile": "passed using documented dbt.exe command",
+    "build": {
+      "status": "passed",
+      "models": {
+        "success": 2,
+        "error": 0
+      },
+      "data_tests": {
+        "passed": 15,
+        "failed": 0,
+        "warned": 0
+      },
+      "tests": [
+        "source_not_null_careflow_raw_event_log_Case_ID",
+        "source_not_null_careflow_raw_event_log_Activity_Name",
+        "source_not_null_careflow_raw_event_log_Start_Timestamp",
+        "source_not_null_careflow_raw_case_metadata_Case_ID",
+        "source_unique_careflow_raw_case_metadata_Case_ID",
+        "source_not_null_careflow_raw_case_metadata_Is_Incomplete",
+        "not_null_stg_event_log_Case_ID",
+        "not_null_stg_event_log_Activity_Name",
+        "not_null_stg_event_log_Timestamp",
+        "not_null_fct_event_log_Case_ID",
+        "not_null_fct_event_log_Activity_Name",
+        "not_null_fct_event_log_Timestamp",
+        "event_timestamp_integrity",
+        "event_case_metadata_coverage",
+        "event_multiplicity_reconciliation"
+      ],
+      "total_run_nodes": {
+        "models": 2,
+        "data_tests": 15,
+        "successful_nodes": 17,
+        "errors": 0,
+        "warnings": 0
+      }
+    },
+    "standalone_test": {
+      "status": "passed",
+      "data_tests_passed": 15,
+      "failed": 0,
+      "warnings": 0
+    },
+    "cli_reproducibility": {
+      "parse": "passed",
+      "compile": "passed",
+      "build": "passed; 2 views and 15 tests",
+      "test": "passed; 15 of 15"
+    }
+  },
+  "sources_before_and_after_build": {
+    "event_log": {
+      "rows": 4863,
+      "distinct_cases": 1000,
+      "bigquery_relation_type": "TABLE"
+    },
+    "case_metadata": {
+      "rows": 1000,
+      "distinct_cases": 1000,
+      "bigquery_relation_type": "TABLE"
+    },
+    "injection_log": {
+      "rows": 1143,
+      "distinct_cases": 705,
+      "bigquery_relation_type": "TABLE"
+    },
+    "source_relation_counts_unchanged_after_build": true
+  },
+  "normalized_output": {
+    "stg_event_log": {
+      "rows": 4863,
+      "distinct_cases": 1000,
+      "relation_type": "VIEW"
+    },
+    "fct_event_log": {
+      "rows": 4863,
+      "distinct_cases": 1000,
+      "relation_type": "VIEW"
+    },
+    "required_fields": [
+      "Case_ID",
+      "Activity_Name",
+      "Timestamp"
+    ],
+    "timestamp_type": "TIMESTAMP",
+    "excluded_events": 0,
+    "unmatched_events": 0,
+    "multiplicity_reconciliation": {
+      "keys": [
+        "Case_ID",
+        "Activity_Name",
+        "Start_Timestamp/Timestamp"
+      ],
+      "source_output_differences": 0,
+      "dbt_test": "passed",
+      "independent_postbuild_bigquery_comparison": "passed"
+    },
+    "repeated_activity_groups": {
+      "source": 161,
+      "output": 161,
+      "source_events_in_groups": 328,
+      "output_events_in_groups": 328,
+      "definition": "Case_ID and Activity_Name groups with count > 1"
+    },
+    "required_field_nulls": 0,
+    "null_start_or_end_timestamps": 0,
+    "equal_start_end_timestamps": 0,
+    "end_before_start_events": 0,
+    "case_metadata_coverage": {
+      "event_cases_without_metadata": 0,
+      "metadata_cases_without_events": 0
+    },
+    "incomplete_cases": {
+      "metadata_marked": 21,
+      "with_observed_events": 21
+    },
+    "distinct_activities": 6,
+    "timestamp_range_utc": {
+      "min": "2026-01-01T09:03:00Z",
+      "max": "2026-01-30T16:44:00Z"
+    },
+    "case_event_count": {
+      "minimum": 2,
+      "maximum": 8,
+      "average": 4.863
+    },
+    "metadata_integrity": {
+      "metadata_rows": 1000,
+      "unique_case_ids": 1000,
+      "incomplete_flag_nulls": 0,
+      "incomplete_terminal_activity_label_matches": 21,
+      "incomplete_terminal_activity_label_mismatches": 0
+    }
+  },
+  "timestamp_integrity": {
+    "source_start_type": "BigQuery TIMESTAMP (absolute instant)",
+    "normalization": "Timestamp aliases Start_Timestamp directly; no timezone conversion",
+    "pm4py_dtype": "datetime64[us, UTC]",
+    "within_case_equal_timestamp_events": 0,
+    "sample_observation": "Full source comparison: all 4863 naive CSV rows match when BigQuery TIMESTAMP values are rendered in UTC; Asia/Kolkata display is 05:30 later.",
+    "ordering_limitation": "No same-time events occurred in this source; a future activity-name tie-break is serialization only and does not imply clinical ordering.",
+    "simulator_generation": "Naive Python datetime values; no tzinfo attached",
+    "csv_export": "Timezone-free %Y-%m-%d %H:%M:%S strings",
+    "ingestion_code_or_job_configuration_found": false,
+    "local_csv_to_bigquery_utc_render": {
+      "local_rows": 4863,
+      "bigquery_rows": 4863,
+      "exact_matches": 4863,
+      "mismatches": 0
+    },
+    "intended_simulator_timezone_established": false,
+    "limitation": "Project context specifies India-local operating hours, but source timestamps are naive and ingestion configuration is unavailable. Preserve stored values until the loader convention is confirmed.",
+    "project_brief_intended_operating_zone": "Asia/Kolkata",
+    "observed_mapping": "All naive CSV clock values match the live BigQuery TIMESTAMP values when rendered in UTC.",
+    "inference": "If the naive values represent India-local instants, stored TIMESTAMP instants are 05:30 later than intended; the absent loader configuration prevents proving the ingestion mechanism.",
+    "transformation": "No timezone shift applied; Timestamp remains a direct alias of Start_Timestamp."
+  },
+  "process_discovery": {
+    "status": "passed",
+    "algorithm": "PM4Py frequency directly-follows graph (DFG); not a Petri net",
+    "events": 4863,
+    "cases": 1000,
+    "activities": {
+      "Diagnostic_Test": 397,
+      "Discharge": 979,
+      "Doctor_Consultation": 1095,
+      "Registration": 1000,
+      "Review_Results": 382,
+      "Triage": 1010
+    },
+    "directly_follows_edges": 13,
+    "start_activities": {
+      "Registration": 1000
+    },
+    "end_activities": {
+      "Discharge": 979,
+      "Triage": 12,
+      "Doctor_Consultation": 5,
+      "Review_Results": 2,
+      "Diagnostic_Test": 2
+    },
+    "most_common_traces": [
+      {
+        "path": "Registration > Triage > Doctor_Consultation > Discharge",
+        "cases": 518
+      },
+      {
+        "path": "Registration > Triage > Doctor_Consultation > Diagnostic_Test > Review_Results > Discharge",
+        "cases": 269
+      },
+      {
+        "path": "Registration > Triage > Doctor_Consultation > Diagnostic_Test > Review_Results > Doctor_Consultation > Discharge",
+        "cases": 62
+      }
+    ],
+    "graph_png": {
+      "path": "outputs/process_map.png",
+      "bytes": 58093,
+      "visually_opened": true,
+      "last_verified_opened": true
+    },
+    "pm4py_graphviz_source": {
+      "path": "outputs/process_map.gv",
+      "bytes": 2559,
+      "exported_with_pm4py_visualizer": true
+    },
+    "graphviz_dot_executable_installed": true,
+    "interpretation": "The graph represents observed data and is not proof of clinical correctness.",
+    "graphviz_version": "16.1.0",
+    "png_render_method": "PM4Py DFG visualizer with Graphviz dot",
+    "graphviz_executable": "C:\\Program Files\\Graphviz\\bin\\dot.exe",
+    "exact_trace_definition": "Full ordered event sequence per Case_ID; listed classes are mutually exclusive and incomplete traces are not padded.",
+    "other_cases_outside_top_three_exact_traces": 151
+  },
+  "remaining_scope": [
+    "Week 3 bottleneck analysis",
+    "Week 3 BI dashboard",
+    "Week 4 conformance checking",
+    "Week 4 dashboard refinement"
+  ],
+  "target_inventory_before_rebuild": {
+    "dataset": "careflow_week2",
+    "relations": [
+      {
+        "name": "fct_event_log",
+        "type": "VIEW"
+      },
+      {
+        "name": "stg_event_log",
+        "type": "VIEW"
+      }
+    ],
+    "unrelated_relations": 0,
+    "safe_to_replace_expected_views": true
+  },
+  "audit_findings": [
+    {
+      "severity": "Medium",
+      "finding": "Initial dbt tests did not enforce metadata uniqueness/coverage, incomplete-case retention, or timestamp interval validity.",
+      "fix": "Added metadata key tests and singular metadata coverage and timestamp interval tests."
+    },
+    {
+      "severity": "Low",
+      "finding": "Previously reported pathway frequencies lacked a full-trace definition.",
+      "fix": "Recomputed each as an exact complete event sequence and clarified they are not partial-path totals."
+    },
+    {
+      "severity": "Medium",
+      "finding": "Naive simulator timestamps have no documented ingestion timezone.",
+      "fix": "Preserved source instants and documented the unresolved intended timezone; all 4863 CSV rows match BigQuery UTC-rendered timestamps."
+    },
+    {
+      "severity": "Low",
+      "finding": "PM4Py accepted a caller-selected relation and did not reject naive timestamps.",
+      "fix": "Now reads only careflow_week2.fct_event_log and requires timezone-aware timestamps."
+    },
+    {
+      "severity": "Low",
+      "finding": "tests/test_export.py exported generated data to default project data directories.",
+      "fix": "Changed the test to write its CSVs under pytest tmp_path."
+    }
+  ],
+  "raw_source_integrity": {
+    "read_only_queries_only": true,
+    "raw_relation_types_and_counts_unchanged_after_build": true,
+    "raw_relations_modified_or_replaced": 0,
+    "week1_generator_invoked": false
+  },
+  "python_unit_suite": {
+    "status": "not run",
+    "reason": "The simulator/export unit suite invokes the Week 1 generator; this audit was instructed not to regenerate synthetic data.",
+    "export_test_side_effect_fixed": "tests/test_export.py now writes only to pytest tmp_path.",
+    "impact": "Simulator unit-test runtime remains unverified; dbt and the live PM4Py pipeline were executed."
+  }
+}
